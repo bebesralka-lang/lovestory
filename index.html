@@ -195,12 +195,6 @@
         .polaroid:nth-child(4) { --rot: 5deg; margin-top: -5px; }
         .polaroid:nth-child(5) { --rot: -4deg; margin-top: 25px; }
         .polaroid:nth-child(6) { --rot: 12deg; margin-top: -20px; }
-        .polaroid:nth-child(7) { --rot: -9deg; margin-top: 15px; }
-        .polaroid:nth-child(8) { --rot: 3deg; margin-top: -10px; }
-        .polaroid:nth-child(9) { --rot: -7deg; margin-top: 30px; }
-        .polaroid:nth-child(10) { --rot: 10deg; margin-top: -8px; }
-        .polaroid:nth-child(11) { --rot: -5deg; margin-top: 18px; }
-        .polaroid:nth-child(12) { --rot: 7deg; margin-top: -12px; }
 
         .footer-text {
             color: #6b5a3a;
@@ -325,7 +319,7 @@
         }
         setInterval(createConfettiHeart, 1500);
 
-        // ======= МУЗЫКА (РАБОЧАЯ ВЕРСИЯ) =======
+        // ======= МУЗЫКА =======
         const playBtn = document.getElementById('playMusicBtn');
         let audio = null;
         let isPlaying = false;
@@ -348,7 +342,6 @@
                         playBtn.textContent = '⏸️ Пауза';
                     })
                     .catch((error) => {
-                        console.error('Ошибка:', error);
                         alert('⚠️ Не удалось воспроизвести музыку');
                     });
             }
