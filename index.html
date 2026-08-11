@@ -108,7 +108,7 @@
             text-shadow: 0 2px 10px rgba(255, 200, 100, 0.2);
         }
 
-              /* ===== МУЗЫКА ===== */
+        /* ===== МУЗЫКА ===== */
         .music-box {
             background: rgba(255, 248, 230, 0.8);
             border-radius: 50px;
@@ -281,14 +281,14 @@
         <h1>☀️ ПАРК АТТРАКЦИОНОВ ☀️</h1>
         <div class="sub">✦ Кричать разрешается. Ссать — запрещено ✦</div>
 
-               <!-- МУЗЫКАЛЬНЫЙ ПЛЕЕР -->
+        <!-- МУЗЫКАЛЬНЫЙ ПЛЕЕР -->
         <div class="music-box">
             <span class="label">🎵</span>
             <button id="playMusicBtn">🎧 Включить музыку</button>
             <span class="label">Can't Fight This Feeling</span>
         </div>
 
-               <div class="polaroid-gallery">
+        <div class="polaroid-gallery">
             <div class="polaroid"><img src="photo1.jpg"><div class="caption">✨ САМОЕ СЧАСТЛИВОЕ ЛЕТО</div></div>
             <div class="polaroid"><img src="photo2.jpg"><div class="caption">🎢 МОИ АМЕРИКАНСКИЕ ГОРКИ</div></div>
             <div class="polaroid"><img src="photo3.jpg"><div class="caption">🎡 С ТОБОЙ ВЫШЕ НЕБА</div></div>
@@ -325,15 +325,14 @@
         }
         setInterval(createConfettiHeart, 1500);
 
-                   // ======= МУЗЫКА =======
+        // ======= МУЗЫКА (ИСПРАВЛЕНА) =======
         const playBtn = document.getElementById('playMusicBtn');
         let audio = null;
         let isPlaying = false;
 
         playBtn.addEventListener('click', function() {
             if (!audio) {
-                audio = new Audio();
-                audio.src = 'music.mp3';
+                audio = new Audio('music.mp3');
                 audio.loop = true;
                 audio.volume = 0.6;
             }
@@ -343,13 +342,27 @@
                 isPlaying = false;
                 playBtn.textContent = '🎧 Включить музыку';
             } else {
-                audio.play().catch(() => {
-                    alert('⚠️ Залейте music.mp3 в репозиторий!');
-                });
-                isPlaying = true;
-                playBtn.textContent = '⏸️ Пауза';
+                audio.play()
+                    .then(() => {
+                        isPlaying = true;
+                        playBtn.textContent = '⏸️ Пауза';
+                    })
+                    .catch((error) => {
+                        console.error('Ошибка воспроизведения:', error);
+                        alert('⚠️ Не удалось воспроизвести музыку. Проверьте файл music.mp3');
+                    });
             }
         });
+
+        // ФИКС: Если музыка уже играла, но страница перезагрузилась — сбрасываем состояние
+        window.addEventListener('beforeunload', function() {
+            if (audio) {
+                audio.pause();
+                audio = null;
+                isPlaying = false;
+            }
+        });
+    </script>
 
 </body>
 </html>
